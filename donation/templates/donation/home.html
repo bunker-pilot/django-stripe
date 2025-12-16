@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Offer Your Support{% endblock %}
+
+{% block content %}
+<div class="text-center mb-5">
+    <div class="sigil">🔮</div>
+    
+    <h3 class="fw-bold mb-2">Sanctuary of Giving</h3>
+    
+    <p class="opacity-75" style="font-size: 0.9rem; color: #d0c0ff;">
+        Bestow an offering to empower the realm
+    </p>
+    
+    <hr style="border-color: var(--arcane-gold); opacity: 0.3; margin: 1.5rem 2rem;">
+</div>
+
+<div class="d-grid gap-3">
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="amount" value="5">
+        <button class="offering-btn w-100 secondary">
+            <span class="me-2">🪙</span> Novice Offering <span class="ms-auto float-end opacity-50">$5</span>
+        </button>
+    </form>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="amount" value="15">
+        <button class="offering-btn w-100" style="border: 1px solid var(--arcane-gold);">
+            <span class="me-2">⚔️</span> Hero’s Tribute <span class="ms-auto float-end text-warning">$15</span>
+        </button>
+    </form>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="amount" value="30">
+        <button class="offering-btn w-100">
+            <span class="me-2">🐉</span> Dragon’s Hoard <span class="ms-auto float-end opacity-50">$30</span>
+        </button>
+    </form>
+
+    <form method="post" class="mt-2">
+        {% csrf_token %}
+        <input type="hidden" name="amount" value="custom">
+        <button class="offering-btn w-100 secondary" style="font-style: italic;">
+            ✨ Custom Invocation
+        </button>
+    </form>
+</div>
+{% endblock %}
