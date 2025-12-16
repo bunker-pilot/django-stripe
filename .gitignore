@@ -1,0 +1,63 @@
+# =====================================
+# Python
+# =====================================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+ENV/
+Lib/
+.venv/
+.pyenv/
+Scripts/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# =====================================
+# Django
+# =====================================
+*.log
+*.pot
+*.pyc
+db.sqlite3
+media/
+staticfiles/
+# If you collect static files to a specific directory, ignore it:
+
+
+# Local settings (optional)
+local_settings.py
+.env
+*.env
+
+# =====================================
+# VS Code
+# =====================================
+.vscode/
+.history/
+*.code-workspace
+
+# =====================================
+# Windows
+# =====================================
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# =====================================
+# PyCharm / JetBrains (if used)
+# =====================================
+.idea/
+
+# =====================================
+# Miscellaneous
+# =====================================
+*.bak
+*.swp
+*.swo
+*.tmp
+*.DS_Store
