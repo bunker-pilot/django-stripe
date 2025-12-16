@@ -123,3 +123,9 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# stripe public key
+STRIPE_PUBLIC_KEY = os.environ["STRIPE_PUBLIC_KEY"]
+# strip private key
+STRIPE_PRIVATE_KEY =os.environ["STRIPE_PRIVATE_KEY"]
