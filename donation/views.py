@@ -18,7 +18,7 @@ def my_donation(request):
                     "product_data": {
                         "name": "Magical Offering",
                     },
-                    "unit_amount": int(amount),
+                    "unit_amount": int(amount) * 100,
                 },
                 "quantity": 1,
             }],

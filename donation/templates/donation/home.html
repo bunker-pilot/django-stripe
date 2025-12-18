@@ -39,13 +39,5 @@
             <span class="me-2">🐉</span> Dragon’s Hoard <span class="ms-auto float-end opacity-50">$30</span>
         </button>
     </form>
-
-    <form method="post" class="mt-2">
-        {% csrf_token %}
-        <input type="hidden" name="amount" value="custom">
-        <button class="offering-btn w-100 secondary" style="font-style: italic;">
-            ✨ Custom Invocation
-        </button>
-    </form>
 </div>
 {% endblock %}

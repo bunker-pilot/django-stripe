@@ -1,1 +1,23 @@
 {% extends "base.html" %}
+
+{% block title %}Offering Accepted{% endblock %}
+
+{% block content %}
+<div class="text-center mb-4">
+    <div class="sigil" style="background: radial-gradient(circle, #d4ffbc, #28a745); box-shadow: 0 0 40px rgba(40, 167, 69, 0.6);">
+        ✨
+    </div>
+    
+    <h3 class="fw-bold mb-3" style="color: #ffd700;">Offering Accepted</h3>
+    
+    <p class="opacity-75" style="line-height: 1.6;">
+        Your generous tribute has successfully reached the Sanctuary. The arcane energies of the realm are now stronger thanks to you.
+    </p>
+</div>
+
+<div class="d-grid gap-3 mt-5">
+    <a href="{% url 'home' %}" class="offering-btn text-decoration-none text-center">
+        Return to the Realm
+    </a>
+</div>
+{% endblock %}
