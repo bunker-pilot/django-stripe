@@ -4,6 +4,8 @@ import stripe
 from django.conf import settings
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib import messages
+from .models import Donation
 # Create your views here.
 
 # donation page
@@ -33,7 +35,30 @@ def my_donation(request):
 # payment success
 
 def payment_success(request):
-    return render(request , "donation/payment_success.html")
+    session_id = request.GET.get("session_id")
+
+    if not session_id:
+        messages.error(request, "No offering was detected.")
+        return redirect("home")
+
+    donation = Donation.objects.filter(
+        session_id=session_id,
+        confirmed=True,
+    ).first()
+
+    if donation:
+        messages.success(
+            request,
+            "✨ The Sanctuary has received your offering."
+        )
+    else:
+        messages.warning(
+            request,
+            "🔮 Your offering is being verified by the arcane council."
+        )
+
+    return render(request, "donation/payment_success.html")
+
 
 #payment failed 
 def payment_fail(request):
@@ -51,8 +76,10 @@ def stripe_webhook(request):
             payload = payload, sig_header=sig_header,secret=endpoint_secret
         )
     except ValueError:
+        messages.error(request, "Something went wrong")
         return HttpResponse(status = 400)
     except stripe.error.SignatureVerificationError:
+        messages.error(request, "Something went wrong")
         return HttpResponse(status = 400)
 
     if event["type"] =="checkout.session.completed":
@@ -62,8 +89,10 @@ def stripe_webhook(request):
     return HttpResponse(status =200)
 
 def handle_success_pay(session):
-    payment_id = session.get("payment_intent")
-    amount = session["amount_total"]
-    email = session.get("customer_dtails", {}).get("email")
-
+    session_id = session.get("id") 
+    amount = session["amount_total"] /100
+    email = session.get("customer_details", {}).get("email")
+    Donation.objects.update_or_create(
+        session_id = session_id , amount= amount , email = email, confirmed = True
+    )
     print("payment_success")

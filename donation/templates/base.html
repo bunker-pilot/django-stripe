@@ -23,6 +23,23 @@
 
     <div class="fantasy-wrapper">
         <div class="fantasy-card">
+            {% if messages %}
+                <div class="arcane-messages">
+                    {% for message in messages %}
+                    <div class="arcane-alert arcane-alert-{{ message.tags }}">
+                        <span class="arcane-alert-icon">
+                        {% if message.tags == "success" %}✨{% endif %}
+                        {% if message.tags == "error" %}💀{% endif %}
+                        {% if message.tags == "warning" %}⚠️{% endif %}
+                        {% if message.tags == "info" %}🔮{% endif %}
+                        </span>
+                        <span class="arcane-alert-text">
+                        {{ message }}
+                        </span>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
             {% block content %}
             {% endblock %}
         </div>
