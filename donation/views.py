@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from .models import Donation
+from django.core.mail import send_mail
 # Create your views here.
 
 # donation page
@@ -94,5 +95,11 @@ def handle_success_pay(session):
     email = session.get("customer_details", {}).get("email")
     Donation.objects.update_or_create(
         session_id = session_id , amount= amount , email = email, confirmed = True
+    )
+    send_mail(
+        subject="✨ Offering Received",
+        message= "Thank you for your generous offering.",
+        from_email="doustierfan4@gmail.com",
+        recipient_list=[email]
     )
     print("payment_success")

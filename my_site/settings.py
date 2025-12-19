@@ -134,3 +134,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 STRIPE_PUBLIC_KEY = os.environ["STRIPE_PUBLIC_KEY"]
 # strip private key
 STRIPE_PRIVATE_KEY =os.environ["STRIPE_PRIVATE_KEY"]
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = os.environ["EMAIL_HOST"]
+EMAIL_PORT = os.environ["EMAIL_PORT"]
+EMAIL_USE_TLS =True
+EMAIL_HOST_USER = os.environ["EMAIL_HOST_USER"]
+EMAIL_HOST_PASSWORD = os.environ["EMAIL_HOST_PASSWORD"]
