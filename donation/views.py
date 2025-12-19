@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 import stripe
 from django.conf import settings
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 # donation page
@@ -36,3 +38,32 @@ def payment_success(request):
 #payment failed 
 def payment_fail(request):
     return render(request , "donation/payment_fail.html")
+
+@csrf_exempt
+def stripe_webhook(request):
+
+    payload = request.body
+    sig_header = request.META.get("HTTP_STRIPE_SIGNATURE")
+
+    endpoint_secret = settings.STRIPE_WEBHOOK_SECRET
+    try:
+        event = stripe.Webhook.construct_event(
+            payload = payload, sig_header=sig_header,secret=endpoint_secret
+        )
+    except ValueError:
+        return HttpResponse(status = 400)
+    except stripe.error.SignatureVerificationError:
+        return HttpResponse(status = 400)
+
+    if event["type"] =="checkout.session.completed":
+        session = event["data"]["object"]
+        handle_success_pay(session)
+
+    return HttpResponse(status =200)
+
+def handle_success_pay(session):
+    payment_id = session.get("payment_intent")
+    amount = session["amount_total"]
+    email = session.get("customer_dtails", {}).get("email")
+
+    print("payment_success")
